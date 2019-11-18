@@ -14,6 +14,15 @@ RSpec.describe PkceChallenge do
       expect(challenge.code_verifier.length).to equal(48)
     end
 
+    it "should match ABNF described in [RFC 7636](https://tools.ietf.org/html/rfc7636)" do
+      max_length_challenge = PkceChallenge.challenge(char_length: 128)
+      min_length_challenge = PkceChallenge.challenge(char_length: 43)
+
+      expect(challenge.code_verifier).to match(/^([A-Za-z0-9]|\-|\.|_|~){43,128}$/)
+      expect(max_length_challenge.code_verifier).to match(/^([A-Za-z0-9]|\-|\.|_|~){43,128}$/)
+      expect(min_length_challenge.code_verifier).to match(/^([A-Za-z0-9]|\-|\.|_|~){43,128}$/)
+    end
+
     it "should raise an error when invalid length is given" do
       expect {
         PkceChallenge.challenge(char_length: 1)
