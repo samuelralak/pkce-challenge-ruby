@@ -20,28 +20,29 @@ Or install it yourself as:
 
 ## Usage
 
-```ruby
-2.6.0 :001 > require "pkce_challenge"
-```
+To generate the code verifier and challenge simply run:
 
 ```ruby
-2.6.0 :001 > PkceChallenge.challenge
+PkceChallenge.challenge
 ```
 
-Output:
+Or with the char length option:
+
 ```ruby
-=> #<PkceChallenge::Challenge:0x00007f894f810378 @char_length=48, @code_verifier="QbS08cDO9pce~HVCKe9-UDiJoBMG8xwql4FI.Y3CIdpyJtPU", @code_challenge="HT90mmypkXgneRUVK-Ja009VvnoL-flydbEgRcTp5Yw">
+PkceChallenge.challenge(char_length: 128)
 ```
 
-Generating a code challenge with the `char_length` option:
+Additionally you can run:
 ```ruby
-# Accepts valid length between 43 and 128
-
-2.6.0 :003 > PkceChallenge.challenge(char_length: 50)
-
- => #<PkceChallenge::Challenge:0x00007f894f20b9a0 @char_length=50, @code_verifier="0St0oCRzGDFj_iIxB8PCwaMPvGLk8vQxDfJIoC_zU56XwwQM21", @code_challenge="01g9RYPZOjpVFB-BBQhd6OC70jlgPFzJ6ie5YkSC7rI">
+pkce_challenge = PkceChallenge.challenge 
+pkce_challenge = PkceChallenge.challenge(char_length: 128) # or with char_length option
 ```
 
+Returned value is an instance of PkceChallenge::Challenge class which will have the following methods:
+```ruby
+pkce_challenge.code_verifier # a dynamically created cryptographically random key
+pkce_challenge.code_challenge # a BASE64-URL-encoded string of the SHA256 hash of the code verifier
+```
 
 ## Development
 
@@ -51,7 +52,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/pkce_challenge. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/samuelralak/pkce_challenge. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
