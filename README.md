@@ -22,7 +22,28 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+2.6.0 :001 > require "pkce_challenge"
+```
+
+```ruby
+2.6.0 :001 > PkceChallenge.challenge
+```
+
+Output:
+```ruby
+=> #<PkceChallenge::Challenge:0x00007f894f810378 @char_length=48, @code_verifier="QbS08cDO9pce~HVCKe9-UDiJoBMG8xwql4FI.Y3CIdpyJtPU", @code_challenge="HT90mmypkXgneRUVK-Ja009VvnoL-flydbEgRcTp5Yw">
+```
+
+Generating a code challenge with the `char_length` option:
+```ruby
+# Accepts valid length between 43 and 128
+
+2.6.0 :003 > PkceChallenge.challenge(char_length: 50)
+
+ => #<PkceChallenge::Challenge:0x00007f894f20b9a0 @char_length=50, @code_verifier="0St0oCRzGDFj_iIxB8PCwaMPvGLk8vQxDfJIoC_zU56XwwQM21", @code_challenge="01g9RYPZOjpVFB-BBQhd6OC70jlgPFzJ6ie5YkSC7rI">
+```
+
 
 ## Development
 
