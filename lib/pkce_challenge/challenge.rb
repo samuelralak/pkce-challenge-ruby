@@ -5,12 +5,18 @@ require "securerandom"
 
 module PkceChallenge
   class Challenge
-    attr_accessor :code_verifier, :code_challenge
+    attr_reader :verifier, :code_challenge
 
     def initialize(options = {})
       @options = options
-      @code_verifier = generate_code_verifier
-      @code_challenge = generate_pkce_challenge
+    end
+
+    def code_verifier
+      @verifier ||= generate_code_verifier
+    end
+
+    def code_challenge
+      @code_challenge ||= generate_pkce_challenge
     end
 
     # constants definition
@@ -34,7 +40,7 @@ module PkceChallenge
     end
 
     def generate_pkce_challenge
-      urlsafe_base64(Digest::SHA256.base64digest(@code_verifier))
+      urlsafe_base64(Digest::SHA256.base64digest(code_verifier))
     end
 
     def urlsafe_base64(base64_str)
