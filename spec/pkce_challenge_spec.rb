@@ -24,9 +24,8 @@ RSpec.describe PkceChallenge do
     end
 
     it "should raise an error when invalid length is given" do
-      expect {
-        PkceChallenge.challenge(char_length: 1)
-      }.to raise_error(PkceChallenge::LengthOutOfRangeError)
+      invalid = PkceChallenge.challenge(char_length: 1)
+      expect { invalid.code_verifier }.to raise_error(PkceChallenge::LengthOutOfRangeError)
     end
   end
 end
